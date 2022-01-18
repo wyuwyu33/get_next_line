@@ -6,12 +6,11 @@
 /*   By: wyu <wyu@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:37:27 by wyu               #+#    #+#             */
-/*   Updated: 2022/01/18 03:40:53 by wyu              ###   ########.fr       */
+/*   Updated: 2022/01/18 22:40:42 by wyu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
+#include "get_next_line_bonus.h"
 
 static int	ft_is_lf(char *s)
 {
@@ -27,20 +26,27 @@ static int	ft_is_lf(char *s)
 	return (-1);
 }
 
+static char *ft_read_all(char **s1, char *s2)
+{
+	s2 = ft_strdup(*s1);
+	if (!s2 || !ft_strlen(s2))
+		{
+			free((void *)s2);
+			s2 = NULL;
+		}
+	free((void *)*s1);
+	*s1 = NULL;
+	return (s2);
+}
+
 static char	*ft_linedup(char **s1, int s2_size)
 {
 	char	*s2;
 	char	*tmp;
 
+	s2 = NULL;
 	if (s2_size < 0)
-	{
-		s2 = ft_strdup(*s1);
-		if (!s2)
-			return (NULL);
-		free((void *)*s1);
-		*s1 = NULL;
-		return (s2);
-	}
+		return (ft_read_all(s1, s2));
 	tmp = ft_strdup(*s1 + s2_size + 1);
 	s2 = (char *)malloc(s2_size + 2);
 	if (!s2)
@@ -63,11 +69,11 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || FD_SIZE <= fd || BUFFER_SIZE <= 0)
 		return (NULL);
-	find_lf = ft_is_lf(backup[fd]);
-	if (find_lf >= 0)
-		return (ft_linedup(&backup[fd], find_lf));
 	while (1)
 	{
+		find_lf = ft_is_lf(backup[fd]);
+		if (find_lf >= 0)
+			return (ft_linedup(&backup[fd], find_lf));
 		read_size = read(fd, buffer, BUFFER_SIZE);
 		if (read_size <= 0)
 			break ;
@@ -75,9 +81,6 @@ char	*get_next_line(int fd)
 		backup[fd] = ft_strjoin_gnl(backup[fd], buffer);
 		if (!backup[fd])
 			return (NULL);
-		find_lf = ft_is_lf(backup[fd]);
-		if (find_lf >= 0)
-			return (ft_linedup(&backup[fd], find_lf));
 	}
 	return (ft_linedup(&backup[fd], -1));
 }

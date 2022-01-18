@@ -6,7 +6,7 @@
 /*   By: wyu <wyu@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:40:05 by wyu               #+#    #+#             */
-/*   Updated: 2022/01/18 03:39:17 by wyu              ###   ########.fr       */
+/*   Updated: 2022/01/18 22:42:13 by wyu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 #  define FD_SIZE 256
 # endif
 
-// get_next_line_bonus.c
+// get_next_line.c
 char			*get_next_line(int fd);
 
-// get_next_line_uils_bonus.c
+// get_next_line_uils.c
 size_t			ft_strlen(const char *s);
 size_t			ft_strlcpy(char *dest, const char *src, size_t count);
 char			*ft_strjoin_gnl(char const *s1, char const *s2);
