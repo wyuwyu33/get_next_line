@@ -6,7 +6,7 @@
 /*   By: wyu <wyu@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:37:27 by wyu               #+#    #+#             */
-/*   Updated: 2022/01/18 22:40:42 by wyu              ###   ########.fr       */
+/*   Updated: 2022/01/18 23:03:03 by wyu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ static int	ft_is_lf(char *s)
 	return (-1);
 }
 
-static char *ft_read_all(char **s1, char *s2)
+static char	*ft_read_all(char **s1, char *s2)
 {
 	s2 = ft_strdup(*s1);
 	if (!s2 || !ft_strlen(s2))
-		{
-			free((void *)s2);
-			s2 = NULL;
-		}
+	{
+		free((void *)s2);
+		s2 = NULL;
+	}
 	free((void *)*s1);
 	*s1 = NULL;
 	return (s2);
